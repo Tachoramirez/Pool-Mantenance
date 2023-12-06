@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('ph');
             $table->string('cloro');
-            $table->date('cepillo');
-            $table->date('filtro');
+            $table->date('cepillo')->nullable();
+            $table->date('filtro')->nullable();
             $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('id_estado');
             $table->foreign('id_estado')->references('id')->on('estados')->onDelete('cascade');

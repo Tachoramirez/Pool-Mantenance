@@ -27,7 +27,9 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="texto">Usuario</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="id_usuario" id="">
-                                <option disabled>---Selecciona un usuario---</option>
+                                @foreach ($currentUser as $usuarioActual)
+                                    <option selected  value="{{$usuarioActual->id}}">{{$usuarioActual->name}}</option>
+                                @endforeach
                                 @foreach ($usuarios as $usuario)
                                     <option value="{{$usuario->id}}">{{$usuario->name}}</option>
                                 @endforeach
@@ -39,7 +41,9 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="select1">Alberca</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " name="id_alberca" id="">
-                                <option disabled>---Selecciona una alberca---</option>
+                                @foreach ($currentPool as $albercaActual)
+                                    <option selected  value="{{$albercaActual->id}}">{{$albercaActual->nombre}}</option>
+                                @endforeach
                                 @foreach ($albercas as $alberca)
                                     <option value="{{$alberca->id}}">{{$alberca->nombre}}</option>
                                 @endforeach
@@ -51,6 +55,9 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="texto">Estado</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="id_estado" id="">
+                                @foreach ($currentStatus as $estadoActual)
+                                    <option selected  value="{{$estadoActual->id}}">{{$estadoActual->estado}}</option>
+                                @endforeach
                                 @foreach ($estados as $estado)
                                      <option value="{{$estado->id}}">{{$estado->estado}}</option>
                                 @endforeach 
@@ -72,14 +79,23 @@
                                 </div>
 
                                 <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Ultimo cepillado</label>
-                                    <input value="{{$servicio->cepillo}}"  class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="date" name="cepillo" id="">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Cepillado</label>
+                                    @if ($servicio->cepillo != null)
+                                        <input checked value="{{$servicio->cepillo}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="checkbox" name="cepillo" id="cepillo">
+                                    @else
+                                        <input value="{{now()}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="checkbox" name="cepillo" id="cepillo">
+                                    @endif
+                                    
                                     <x-input-error :messages="$errors->get('cepillo')" class="mt-2" />
                                 </div>
                                 <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Ultimo cambio de filtro</label>
-                                    <input value="{{$servicio->filtro}}"  class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full " type="date" name="filtro" id="">
-                                    <x-input-error :messages="$errors->get('filtro')" class="mt-2" />
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Cambio de filtro</label>
+                                    @if ($servicio->filtro != null)
+                                        <input checked value="{{$servicio->filtro}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="checkbox" name="filtro" id="filtro">
+                                    @else
+                                         <input value="{{now()}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="checkbox" name="filtro" id="filtro">
+                                    @endif
+                                        <x-input-error :messages="$errors->get('filtro')" class="mt-2" />
                                 </div>
                             </div>
                         </div>

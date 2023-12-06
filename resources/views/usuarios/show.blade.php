@@ -17,7 +17,7 @@
                 <div class="w-full mx-auto mt-4">
                     <div class="flex flex-wrap -mx-3 mb-4">
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <span>N° de alberca: </span> <b>{{$usuario->id}}</b>
+                            <span>N° de usuario: </span> <b>{{$usuario->id}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
                             <span>Nombre: </span><b>{{$usuario->name}}</b>
@@ -33,7 +33,7 @@
                             <span>Numero telefonico: </span> <b>{{$usuario->num_cel}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <span></span><b></b>
+                            <span>Correo: </span><b>{{$usuario->email}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
                             <span>Estado: </span>

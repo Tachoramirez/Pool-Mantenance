@@ -27,6 +27,7 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="texto">Cliente</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="id_cliente" id="">
+                                <option selected disabled>---Selecciona un cliente---</option>
                                 @foreach ($clientes as $cliente)
                                      <option value="{{$cliente->id}}">{{$cliente->name}}</option>
                                 @endforeach 

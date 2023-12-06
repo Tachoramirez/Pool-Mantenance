@@ -25,7 +25,7 @@ class ServicioController extends Controller
         ->join('albercas', 'albercas.id', '=', 'servicios.id_alberca')
         ->join('estados', 'estados.id', '=', 'servicios.id_estado')
         ->orderBy('servicios.id', 'desc')
-        ->paginate(10);
+        ->get();
         return view('servicios.index', compact('servicios'));
     }
 
@@ -50,10 +50,10 @@ class ServicioController extends Controller
             'id_usuario' => 'required',
             'id_alberca' => 'required',
             'nombre' => 'required',
-            'ph' => 'required',
-            'cloro' => 'required',
-            'cepillo' => 'required',
-            'filtro' => 'required',
+            'ph' => 'required|numeric|min:1|max:14',
+            'cloro' => 'required|numeric|min:0|max:2.5',
+            'cepillo' => 'nullable|date',
+            'filtro' => 'nullable|date',
         ]);
         if ($validate->fails()){
             //return response()->json(['success'=>false, 'errors'=>$validate->errors()]);
@@ -69,7 +69,7 @@ class ServicioController extends Controller
             'cepillo' => $request->cepillo,
             'filtro' => $request->filtro,
             'observaciones' => $request->observaciones,
-            'id_estado' => 1,
+            'id_estado' => 4,
         ]);
        
         //return response()->json($result);
@@ -81,6 +81,8 @@ class ServicioController extends Controller
      */
     public function show(Servicio $servicio): View
     {
+        $usuarios = User::select('users.*')->get();
+        $albercas = Alberca::select('albercas.*')->get();
         return view('servicios.show', compact('servicio'));
     }
 
@@ -92,7 +94,19 @@ class ServicioController extends Controller
         $usuarios = User::select('users.*')->get();
         $albercas = Alberca::select('albercas.*')->get();
         $estados = Estado::select()->get();
-        return view('servicios.edit', compact('servicio', 'usuarios', 'albercas', 'estados'));
+        $currentUser = User::select('users.*')
+            ->join('servicios', 'servicios.id_usuario', '=', 'users.id')
+            ->where('servicios.id', '=', $servicio->id)
+            ->get();
+        $currentPool = Alberca::select('albercas.*')
+            ->join('servicios', 'servicios.id_alberca', '=', 'albercas.id')
+            ->where('servicios.id', '=', $servicio->id)
+            ->get();
+        $currentStatus = Estado::select('estados.*')
+            ->join('servicios', 'servicios.id_estado', '=', 'estados.id')
+            ->where('servicios.id', '=', $servicio->id)
+            ->get();
+        return view('servicios.edit', compact('servicio', 'usuarios', 'albercas', 'estados', 'currentUser', 'currentPool', 'currentStatus'));
     }
 
     /**
@@ -104,10 +118,10 @@ class ServicioController extends Controller
             'id_usuario' => 'required',
             'id_alberca' => 'required',
             'nombre' => 'required',
-            'ph' => 'required',
-            'cloro' => 'required',
-            'cepillo' => 'required',
-            'filtro' => 'required',
+            'ph' => 'required|numeric|min:1|max:14',
+            'cloro' => 'required|numeric|min:0|max:2.5',
+            'cepillo' => 'nullable|date',
+            'filtro' => 'nullable|date',
         ]);
 
         $servicio->update([

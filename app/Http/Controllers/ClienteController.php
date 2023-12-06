@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index(): View
     {
-        $clientes = Cliente::latest()->paginate(10);
+        $clientes = Cliente::latest()->get();
         return view('clientes.index', compact('clientes'));
     }
 
@@ -35,8 +35,8 @@ class ClienteController extends Controller
         $request->validate([
 
             'name' => 'required',
-            'num_cel' => ['required'],
-            'email' => 'required',
+            'num_cel' => 'required|unique:clientes|min:10|max:10',
+            'email' => 'required|unique:clientes',
         ]);
 
         Cliente::create(
@@ -76,7 +76,7 @@ class ClienteController extends Controller
         $request->validate([
 
             'name' => 'required',
-            'num_cel' => ['required'],
+            'num_cel' => 'required|min:10|max:10',
             'email' => 'required',
         ]);
         $cliente->update([

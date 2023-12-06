@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $alberca->name }}
+            {{ $alberca->nombre }}
         </h2>
     </x-slot>
 
@@ -32,7 +32,7 @@
                             <span>Propietario: </span> <b>{{$cliente->cliente}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <span></span><b></b>
+                            <span>Servicios finalizados: </span><b>{{$finished}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
                             <span>Estado: </span>

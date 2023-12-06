@@ -27,7 +27,7 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="texto">Usuario</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="id_usuario" id="">
-                                <option disabled>---Selecciona un usuario---</option>
+                                <option selected disabled>---Selecciona un usuario---</option>
                                 @foreach ($usuarios as $usuario)
                                     <option value="{{$usuario->id}}">{{$usuario->name}}</option>
                                 @endforeach
@@ -39,7 +39,7 @@
                         <div class="mt-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="select1">Alberca</label>
                             <select class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " name="id_alberca" id="">
-                                <option disabled>---Selecciona una alberca---</option>
+                                <option selected disabled>---Selecciona una alberca---</option>
                                 @foreach ($albercas as $alberca)
                                     <option value="{{$alberca->id}}">{{$alberca->nombre}}</option>
                                 @endforeach
@@ -50,24 +50,24 @@
                         <div class="w-full mx-auto mt-4">
                             <div class="flex flex-wrap -mx-3 mb-4">
                                 <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">PH</label>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="">PH</label>
                                     <input   class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " type="number" name="ph" id="">
                                     <x-input-error :messages="$errors->get('ph')" class="mt-2" />
                                 </div>
                                  <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Cloro</label>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="">Cloro</label>
                                     <input   class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " type="number" name="cloro" id="">
                                     <x-input-error :messages="$errors->get('cloro')" class="mt-2" />
                                 </div>
 
                                 <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Ultimo cepillado</label>
-                                    <input   class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="date" name="cepillo" id="">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="">Cepillado</label>
+                                    <input value="{{now()}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full" type="checkbox" name="cepillo" id="cepillo">
                                     <x-input-error :messages="$errors->get('cepillo')" class="mt-2" />
                                 </div>
                                 <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="numero1">Ultimo cambio de filtro</label>
-                                    <input   class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full " type="date" name="filtro" id="">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="">Filtro</label>
+                                    <input value="{{now()}}" class="block mt-1 border-gray-300 rounded-md px-2 py-3 w-full " type="checkbox" name="filtro" id="filtro">
                                     <x-input-error :messages="$errors->get('filtro')" class="mt-2" />
                                 </div>
                             </div>

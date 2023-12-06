@@ -18,7 +18,7 @@ class AlbercaController extends Controller
     {
         $albercas = Alberca::select('albercas.*', 'clientes.name')
         ->join('clientes', 'clientes.id', '=', 'albercas.id_cliente')
-        ->paginate(10);
+        ->get();
         return view('albercas.index', compact('albercas'));
     }
 
@@ -61,20 +61,11 @@ class AlbercaController extends Controller
             ->where('albercas.id', $alberca->id)
             ->first();
 
-        $pend = Servicio::where('id_alberca', $alberca->id)
-        ->where('id_estado', 1)
-        ->count();
-        $process = Servicio::where('id_alberca', $alberca->id)
-        ->where('id_estado', 2)
-        ->count();
-        $canceled = Servicio::where('id_alberca', $alberca->id)
-        ->where('id_estado', 3)
-        ->count();
         $finished = Servicio::where('id_alberca', $alberca->id)
         ->where('id_estado', 4)
         ->count();
 
-        return view('albercas.show', compact('cliente', 'alberca', 'pend', 'process', 'canceled', 'finished'));
+        return view('albercas.show', compact('cliente', 'alberca', 'finished'));
     }
 
     /**
@@ -83,7 +74,11 @@ class AlbercaController extends Controller
     public function edit(Alberca $alberca): View
     {   
         $clientes = Cliente::select()->get();
-        return view('albercas.edit', compact('alberca', 'clientes'));
+        $currentClient = Cliente::select('clientes.*')
+            ->join('albercas', 'albercas.id_cliente', '=', 'clientes.id')
+            ->where('albercas.id', '=', $alberca->id)
+            ->get();
+        return view('albercas.edit', compact('alberca', 'clientes', 'currentClient'));
     }
 
     /**

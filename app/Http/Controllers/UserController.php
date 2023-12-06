@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $usuarios = User::latest()->paginate(10);
+        $usuarios = User::latest()->get();
         return view('usuarios.index', compact('usuarios'));
     }
 
@@ -38,8 +38,8 @@ class UserController extends Controller
         $request->validate([
 
             'name' => 'required',
-            'num_cel' => 'required',
-            'email' => 'required',
+            'num_cel' => 'required|min:10|max:10|unique:users',
+            'email' => 'required|unique:users',
         ]);
 
         User::create(
@@ -92,15 +92,15 @@ class UserController extends Controller
         $request->validate([
 
             'name' => 'required',
-            'num_cel' => 'required',
+            'num_cel' => 'required|min:10|max:10',
             'email' => 'required',
         ]);
 
         $usuario->update([
             'name' => $request->name,
-                'num_cel' => $request->num_cel,
-                'email' => $request->email,
-                'vigencia' => $request->vigencia,
+            'num_cel' => $request->num_cel,
+            'email' => $request->email,
+            'vigencia' => $request->vigencia,
         ]);
         return redirect()->route('usuarios.index')->with('success', 'Usuario editado exitosamente');
     }

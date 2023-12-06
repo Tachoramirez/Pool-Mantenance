@@ -16,7 +16,7 @@
                 <div class="w-full mx-auto mt-4">
                     <div class="flex flex-wrap -mx-3 mb-4">
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <span>N° de cliente: </span> <b>{{$servicio->id}}</b>
+                            <span>N° de servicio: </span> <b>{{$servicio->id}}</b>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
                             <span>Nombre: </span><b>{{$servicio->nombre}}</b>
@@ -61,10 +61,22 @@
                             <div class="text-center"><span>Nivel de cloro: </span><br><h4>{{$servicio->cloro}}</h4></div>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <div class="text-center"><span>Cambio de filtro: </span><br><h4>{{$servicio->filtro}}</h4></div>
+                            <div class="text-center"><span>Cambio de filtro: </span><br>
+                                @if ($servicio->filtro == null)
+                                    <h3>NO</h3>
+                                @else
+                                    <h4>{{$servicio->filtro}}</h4>
+                                @endif
+                                </div>
                         </div>
                         <div class="w-full md:w-1/3 lg:w-3/12 px-3 mb-4 md:mb-0">
-                            <div class="text-center"><span>Ultimo Cepillado: </span><br><h4>{{$servicio->cepillo}}</h4></div>
+                            <div class="text-center"><span>Cepillado: </span><br>
+                                @if ($servicio->cepillo == null)
+                                    <h3>NO</h3>
+                                @else
+                                    <h4>{{$servicio->cepillo}}</h4>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-4">
